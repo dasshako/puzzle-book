@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { Arrow } from './Icons.jsx';
-import { BOOK_PRICE, savePreorder } from '../lib/preorder.js';
+import { BOOK_PRICE, sendPreorder } from '../lib/preorder.js';
 
 const EMPTY = { name: '', contact: '', delivery: '', qty: '1', comment: '' };
 
@@ -15,6 +15,7 @@ function validate(values) {
 export default function PreorderForm() {
   const [values, setValues] = useState(EMPTY);
   const [error, setError] = useState('');
+  const [sending, setSending] = useState(false);
   const [order, setOrder] = useState(null);
 
   const qty = Number(values.qty);
@@ -24,7 +25,7 @@ export default function PreorderForm() {
     return (event) => setValues((current) => ({ ...current, [field]: event.target.value }));
   }
 
-  function handleSubmit(event) {
+  async function handleSubmit(event) {
     event.preventDefault();
     const problem = validate(values);
     if (problem) {
@@ -33,8 +34,22 @@ export default function PreorderForm() {
     }
 
     setError('');
-    setOrder(savePreorder({ ...values, name: values.name.trim(), qty, total }));
-    setValues(EMPTY);
+    setSending(true);
+    const placed = { ...values, name: values.name.trim(), qty, total };
+
+    try {
+      await sendPreorder(placed);
+      setOrder(placed);
+      setValues(EMPTY);
+    } catch (err) {
+      setError(
+        err.message === 'not-configured'
+          ? 'Приймання передзамовлень ще не налаштоване — напишіть нам в Instagram.'
+          : 'Не вдалося надіслати замовлення. Спробуйте ще раз або напишіть в Instagram.',
+      );
+    } finally {
+      setSending(false);
+    }
   }
 
   if (order) {
@@ -100,10 +115,12 @@ export default function PreorderForm() {
       <div className="preorder-submit">
         <span className="preorder-total">
           <strong>{total} грн</strong>
-          <span>за {qty} {qty === 1 ? 'примірник' : 'примірники'}</span>
+          <span>
+            за {qty} {qty === 1 ? 'примірник' : 'примірники'}
+          </span>
         </span>
-        <button className="btn" type="submit">
-          Підтвердити передзамовлення <Arrow className="btn-arrow" />
+        <button className="btn" type="submit" disabled={sending}>
+          {sending ? 'Надсилаємо…' : 'Підтвердити передзамовлення'} <Arrow className="btn-arrow" />
         </button>
       </div>
 
