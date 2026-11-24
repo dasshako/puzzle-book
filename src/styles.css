@@ -1407,6 +1407,136 @@ h4 {
   font-size: 0.9rem;
 }
 
+.preorder-card {
+  padding: clamp(18px, 3vw, 30px);
+  border: 2px solid var(--ink);
+  border-radius: 20px;
+  background: var(--paper);
+  box-shadow: var(--shadow);
+}
+
+.preorder-form {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 14px 16px;
+}
+
+.preorder-form label {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  font-size: 0.72rem;
+  font-weight: 800;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+.preorder-form input,
+.preorder-form select,
+.preorder-form textarea {
+  width: 100%;
+  padding: 11px 12px;
+  border: 2px solid var(--ink);
+  border-radius: 12px;
+  background: #fff;
+  color: var(--ink);
+  font: inherit;
+  font-size: 0.95rem;
+  font-weight: 500;
+  letter-spacing: normal;
+  text-transform: none;
+}
+
+.preorder-form input:focus,
+.preorder-form select:focus,
+.preorder-form textarea:focus {
+  outline: 3px solid var(--yellow);
+  outline-offset: 1px;
+}
+
+.preorder-form textarea {
+  min-height: 88px;
+  resize: vertical;
+}
+
+.preorder-form .wide {
+  grid-column: 1 / -1;
+}
+
+.form-error {
+  grid-column: 1 / -1;
+  margin: 0;
+  color: #b3261e;
+  font-size: 0.85rem;
+  font-weight: 700;
+}
+
+.preorder-submit {
+  grid-column: 1 / -1;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin-top: 4px;
+}
+
+.preorder-total {
+  display: flex;
+  align-items: baseline;
+  gap: 8px;
+}
+
+.preorder-total strong {
+  font-family: Unbounded, system-ui, sans-serif;
+  font-size: 1.4rem;
+}
+
+.preorder-total span {
+  font-size: 0.78rem;
+  color: var(--muted);
+}
+
+.form-note {
+  grid-column: 1 / -1;
+  margin: 0;
+  font-size: 0.78rem;
+  color: var(--muted);
+}
+
+.form-note a {
+  text-decoration: underline;
+  font-weight: 700;
+}
+
+.preorder-done h3 {
+  margin: 12px 0 0;
+  font-size: clamp(1.3rem, 2.6vw, 1.7rem);
+}
+
+.preorder-done p {
+  max-width: 56ch;
+  margin: 10px 0 0;
+  color: #423b31;
+  line-height: 1.6;
+}
+
+.preorder-summary {
+  font-weight: 700;
+  color: var(--ink) !important;
+}
+
+.preorder-done .btn {
+  margin-top: 18px;
+}
+
+@media (max-width: 700px) {
+  .preorder-form {
+    grid-template-columns: 1fr;
+  }
+}
+
 @media (max-width: 900px) {
   .book-hero {
     grid-template-columns: 1fr;

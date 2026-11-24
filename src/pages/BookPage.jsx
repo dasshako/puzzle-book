@@ -1,7 +1,9 @@
 import { Link } from 'react-router-dom';
 import { TYPES } from '../lib/types.js';
+import { BOOK_OLD_PRICE, BOOK_PRICE } from '../lib/preorder.js';
 import { Arrow, Sparkle } from '../components/Icons.jsx';
 import BookCover from '../components/BookCover.jsx';
+import PreorderForm from '../components/PreorderForm.jsx';
 
 const INSIDE = [
   { type: 'crossword', count: 18, label: 'кросвордів' },
@@ -52,8 +54,8 @@ export default function BookPage() {
             </p>
 
             <div className="price-row">
-              <strong>376 грн</strong>
-              <s>470 грн</s>
+              <strong>{BOOK_PRICE} грн</strong>
+              <s>{BOOK_OLD_PRICE} грн</s>
               <span className="chip pink">−20% на передзамовлення</span>
             </div>
 
@@ -71,13 +73,8 @@ export default function BookPage() {
             </ul>
 
             <div className="book-actions">
-              <a
-                className="btn"
-                href="https://www.instagram.com/itszabava/"
-                target="_blank"
-                rel="noreferrer"
-              >
-                Передзамовити в Instagram <Arrow className="btn-arrow" />
+              <a className="btn" href="#preorder">
+                Передзамовити <Arrow className="btn-arrow" />
               </a>
               <Link className="btn ghost" to="/">
                 Спробувати онлайн
@@ -120,6 +117,19 @@ export default function BookPage() {
                 </div>
               );
             })}
+          </div>
+        </section>
+
+        <section className="section preorder" id="preorder">
+          <div className="section-head">
+            <div>
+              <h2>Передзамовити</h2>
+              <p className="section-note">Залиште контакти — підтвердимо замовлення та надішлемо реквізити для оплати.</p>
+            </div>
+          </div>
+
+          <div className="preorder-card">
+            <PreorderForm />
           </div>
         </section>
 
