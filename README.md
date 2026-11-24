@@ -1,2 +1,19 @@
 # puzzle-book
-Digital puzzle book
+
+Онлайн-збірка головоломок: кросворди, філворди, судоку й кейворди.
+Прогрес зберігається у localStorage браузера, тож можна повертатися до розв’язування будь-коли.
+
+## Локальний запуск
+
+```bash
+npm install
+npm run dev   # http://localhost:3000
+```
+
+## Структура
+
+- `src/pages/Home.jsx` — книжка: прогрес, розділи й картки головоломок
+- `src/pages/PuzzlePage.jsx` — сторінка головоломки
+- `src/components/players/` — по компоненту на тип головоломки
+- `src/data/puzzles.json` — згенеровані головоломки (кросворди, філворди, судоку, кейворди)
+- `src/lib/progress.js` — збереження прогресу в localStorage
