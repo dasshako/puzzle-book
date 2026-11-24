@@ -15,7 +15,6 @@ function validate(values) {
 export default function PreorderForm() {
   const [values, setValues] = useState(EMPTY);
   const [error, setError] = useState('');
-  const [sending, setSending] = useState(false);
   const [order, setOrder] = useState(null);
 
   const qty = Number(values.qty);
@@ -25,7 +24,7 @@ export default function PreorderForm() {
     return (event) => setValues((current) => ({ ...current, [field]: event.target.value }));
   }
 
-  async function handleSubmit(event) {
+  function handleSubmit(event) {
     event.preventDefault();
     const problem = validate(values);
     if (problem) {
@@ -34,21 +33,14 @@ export default function PreorderForm() {
     }
 
     setError('');
-    setSending(true);
     const placed = { ...values, name: values.name.trim(), qty, total };
 
     try {
-      await sendPreorder(placed);
+      sendPreorder(placed);
       setOrder(placed);
       setValues(EMPTY);
-    } catch (err) {
-      setError(
-        err.message === 'not-configured'
-          ? 'Приймання передзамовлень ще не налаштоване — напишіть нам в Instagram.'
-          : 'Не вдалося надіслати замовлення. Спробуйте ще раз або напишіть в Instagram.',
-      );
-    } finally {
-      setSending(false);
+    } catch {
+      setError('Приймання передзамовлень ще не налаштоване — напишіть нам в Instagram.');
     }
   }
 
@@ -119,8 +111,8 @@ export default function PreorderForm() {
             за {qty} {qty === 1 ? 'примірник' : 'примірники'}
           </span>
         </span>
-        <button className="btn" type="submit" disabled={sending}>
-          {sending ? 'Надсилаємо…' : 'Підтвердити передзамовлення'} <Arrow className="btn-arrow" />
+        <button className="btn" type="submit">
+          Підтвердити передзамовлення <Arrow className="btn-arrow" />
         </button>
       </div>
 
