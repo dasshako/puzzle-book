@@ -27,7 +27,12 @@ export default function Home() {
             <span className="brand-word">забава</span>
             <span className="brand-tag">puzzle book</span>
           </Link>
-          <span className="topbar-note">Think. Solve. Repeat.</span>
+          <div className="topbar-right">
+            <span className="topbar-note">Think. Solve. Repeat.</span>
+            <Link className="topnav-link" to="/book">
+              Про книжку
+            </Link>
+          </div>
         </header>
 
         <section className="hero">
